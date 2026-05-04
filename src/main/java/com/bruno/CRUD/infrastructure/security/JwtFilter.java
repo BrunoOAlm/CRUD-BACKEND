@@ -26,7 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        // 🔥 LIBERA AUTH (login/register)
+        // LIBERA AUTH (login/register)
         if (path.contains("/auth")) {
             filterChain.doFilter(request, response);
             return;
@@ -41,10 +41,10 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 if (jwtService.isTokenValid(token)) {
                     String email = jwtService.extractUsername(token);
-                    // 🔐 futuramente você coloca autenticação aqui
+                    //  futuramente você coloca autenticação aqui
                 }
             } catch (Exception e) {
-                // 🔥 NÃO BLOQUEIA AQUI
+                // NÃO BLOQUEIA AQUI
             }
         }
 

@@ -11,15 +11,15 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    // 🔐 chave (tem que ter pelo menos 32 caracteres)
+    // chave (tem que ter pelo menos 32 caracteres)
     private final String SECRET_KEY = "minha_chave_super_secreta_123456789012345";
 
-    // 🔹 gera chave de assinatura
+    // gera chave de assinatura
     private Key getSignKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    // 🔥 GERA TOKEN
+    // GERA TOKEN
     public String generateToken(String email) {
         return Jwts
                 .builder()
@@ -30,24 +30,24 @@ public class JwtService {
                 .compact();
     }
 
-    // 🔹 Extrai email do token
+    // Extrai email do token
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
     }
 
-    // 🔹 Valida token
+    //  Valida token
     public boolean isTokenValid(String token) {
         return !isTokenExpired(token);
     }
 
-    // 🔹 Verifica se expirou
+    // Verifica se expirou
     private boolean isTokenExpired(String token) {
         return extractAllClaims(token)
                 .getExpiration()
                 .before(new Date());
     }
 
-    // 🔹 Extrai dados do token
+    //  Extrai dados do token
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
