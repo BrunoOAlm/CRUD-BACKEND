@@ -26,21 +26,21 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
 
-                // 🔥 CORS CORRETO (ESSENCIAL)
+                //CORS CORRETO
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
                 .authorizeHttpRequests(auth -> auth
-                        // 🔥 libera preflight (CORS)
+                        // libera preflight (CORS)
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // 🔥 libera login/register
+                        // libera login/register
                         .requestMatchers("/auth/**").permitAll()
 
-                        // 🔐 resto protegido
+                        // resto protegido
                         .anyRequest().authenticated()
                 )
 
-                // 🔐 filtro JWT
+                // filtro JWT
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
